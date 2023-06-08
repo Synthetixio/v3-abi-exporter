@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@usecannon/cli": "^2.4.15",
+    "lodash": "^4.17.21"
+  }
+}
