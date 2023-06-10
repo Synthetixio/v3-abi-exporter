@@ -17,7 +17,7 @@ CHAIN_IDS.forEach(async chain_id => {
       if (specificJsonOutput) {
         let value = deepFind(specificJsonOutput, "AccountProxy");
         if (value) {
-          fs.writeFileSync(`./abis/${chain_id}-${PROXIES[proxy]}.json`, JSON.stringify(jsonOutput, null, 2));
+          fs.writeFileSync(`./abis/${chain_id}-${PROXIES[proxy]}.json`, JSON.stringify(value, null, 2));
         }
       }
     } else {
