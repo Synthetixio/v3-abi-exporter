@@ -1,13 +1,14 @@
-const { execSync } = require('child_process');
+const { inspect } = require('@usecannon/cli');
 const fs = require('fs');
 const _ = require('lodash');
 
 const CHAIN_IDS = [1, 5, 10, 420, 84531, 11155111];
 const PROXIES = { "CoreProxy": "SynthetixCore", "AccountProxyCore": "snxAccountNFT", "AccountProxyPerps": "PerpsAccountNFT", "Proxy": "OracleManager", "USDProxy": "snxUSDToken", "SpotMarketProxy": "SpotMarket", "PerpsMarketProxy": "PerpsMarket" };
 
-CHAIN_IDS.forEach(chain_id => {
-  let output = execSync(`cannon inspect synthetix-omnibus --chain-id ${chain_id} --json`, { encoding: 'utf8', maxBuffer: 1024 * 1024 * 1000000 }); // TODO: update this to use cannon via npm
-  let jsonOutput = JSON.parse(output);
+fs.mkdirSync('./abis', { recursive: true });
+
+CHAIN_IDS.forEach(async chain_id => {
+  let jsonOutput = await inspect('synthetix-omnibus', chain_id, 'main', true);
 
   Object.keys(PROXIES).forEach(proxy => {
     if (proxy.startsWith("AccountProxy")) {
